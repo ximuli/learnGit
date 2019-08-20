@@ -93,3 +93,23 @@ git log --graph
 # 跳转到git log 的帮助文档网页
 git help --web log
 ```
+
+## .git 目录
+
+HEAD 文件
+
+config 文件
+
+objects 文件夹
+
+```
+# 显示版本库对象的类型（可能是 blob/tree/commit/tag）
+git cat-file -t 某个版本的哈希值
+
+# 显示版本库对象的内容
+git cat-file -p 某个版本的哈希值
+
+# 显示版本库对象的大小
+git cat-file -s 某个版本的哈希值
+```
+
