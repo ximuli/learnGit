@@ -126,5 +126,50 @@ git checkout commitID
 
 如果你想基于某个 commit 做变更，尝试一下新方案是否可行，就可以采用「分离头指针」的方式。测试后发现方案不好，可以直接 reset 回其他分支，省却了建/删分支的麻烦。如果觉得新方案有用，那么可以通过用刚提交过的 commitID 新建一个分支出来： `git branch 新分支名称 commitID`，这样即便你切换到其他分支代码也会保留到新建的分支上。
 
+## HEAD 和 branch
+
+HEAD 可以和分支挂钩也可以不挂钩，挂钩时 HEAD 指向该分支的最新 commit ，不挂钩时单独指向某个 commit 就是「分离头指针」的状态。
+
+```
+# 比较两个 commit 之间的差异
+git diff commitID commitID
+
+# 比较当前指针对应的 commit 与其父亲之间的差异
+git commit HEAD HEAD^
+git commit HEAD HEAD~1
+
+git commit HEAD HEAD^^
+git commit HEAD HEAD~2
+```
+
+思考：
+> 1 一个节点，可以包含多个子节点（checkout 出多个分支）
+>
+> 2 一个节点可以有多个父节点（多个分支合并）
+>
+> 3 ^是~都是父节点，区别是跟随数字时候，^2 是第二个父节点，而~2是父节点的父节点
+>
+> 4 ^和~可以组合使用,例如 HEAD~2^2
+
+## 删除分支
+
+```
+git branch -d 分支名
+```
+在删除前 Git 会判断该分支上的功能是否被 merge 过，如果报错如下：
+```
+error：The branch is not fully merged
+```
+
+是指这个分支不曾合并到其他任何分支。
+
+在日常开发中，我们通常赋予有意义的分支名，Git判断本分支没和任何别的分支合并，意味这删除存在风险。它也提供我们 `-D` 的方式，如果确定无风险就用 `-D` 。
+
+将 `-d` 改为 `-D` 可以无视上述警告而强制删除分支。
+
+```
+# 强制删除
+git branch -D 分支名
+```
 
 
