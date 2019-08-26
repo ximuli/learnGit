@@ -172,4 +172,24 @@ error：The branch is not fully merged
 git branch -D 分支名
 ```
 
+## 修改 commit message
+
+### 修改最新一次 commit 的 message 
+```
+git commit --amend
+```
+
+### 修改任意的 commit message
+
+```
+# parentCommitID 指的是要修改的 commit message 的父级 commitID
+git rabase -i parentCommitID
+```
+
+使用此命令会进入交互式的 git 环境，注意界面上 git 给出的提示
+
+
+
+
+
 
